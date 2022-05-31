@@ -21,6 +21,6 @@ function printForecast(arr) {
     finalString += string;
   }
   //log the result
-  console.log(finalString);
+  console.log(finalString + "...");
 }
 printForecast([17, 21, 23]);
