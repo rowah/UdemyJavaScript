@@ -23,11 +23,13 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (inputValue < secretNumber) {
     document.querySelector('.message').textContent =
       'Wrong! The number is too low! Guess Again';
+    document.querySelector('.score').textContent -= 1;
   } else if (inputValue === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number!';
   } else if (inputValue > secretNumber) {
     document.querySelector('.message').textContent =
       'Wrong! The number is too high! Guess Again';
+    document.querySelector('.score').textContent -= 1;
   }
 });
 // document.querySelector('.number').textContent = inputValue;
