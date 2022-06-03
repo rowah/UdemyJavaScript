@@ -7,7 +7,7 @@
 
 //define the secret number to compare to the input number after every event handling
 const secretNumber = Math.trunc(Math.random() * 20) + 1;
-
+let score = 20;
 //display secret number under the question mark on the dom
 document.querySelector('.number').textContent = secretNumber;
 //event listensr
@@ -21,15 +21,31 @@ document.querySelector('.check').addEventListener('click', function () {
   if (!inputValue) {
     document.querySelector('.message').textContent = 'No Number!';
   } else if (inputValue < secretNumber) {
-    document.querySelector('.message').textContent =
-      'Wrong! The number is too low! Guess Again';
-    document.querySelector('.score').textContent -= 1;
+    if (score > 1) {
+      document.querySelector('.message').textContent =
+        'Wrong! The number is too low! Guess Again';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = 'You lost the game';
+      document.querySelector('.score').textContent = 0;
+    }
   } else if (inputValue === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number!';
+    document.querySelector('.highscore').textContent = score;
   } else if (inputValue > secretNumber) {
-    document.querySelector('.message').textContent =
-      'Wrong! The number is too high! Guess Again';
-    document.querySelector('.score').textContent -= 1;
+    if (score > 1) {
+      document.querySelector('.message').textContent =
+        'Wrong! The number is too high! Guess Again';
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = 'You lost the game';
+      document.querySelector('.score').textContent = 0;
+    }
   }
 });
+// document.querySelector('.again').addEventListener('click', function () {
+//     document.querySelector('.highscore').textContent = score;
+// });
 // document.querySelector('.number').textContent = inputValue;
