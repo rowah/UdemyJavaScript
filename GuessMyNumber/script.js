@@ -23,10 +23,12 @@ document.querySelector('.check').addEventListener('click', function () {
   if (!inputValue) {
     document.querySelector('.message').textContent = 'No Number!';
     //input low
-  } else if (inputValue < secretNumber) {
+  } else if (inputValue !== secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent =
-        'Wrong! The number is too low!';
+        inputValue < secretNumber
+          ? 'Wrong! The number is too low!'
+          : 'Wrong! The number is too high!';
       score--;
       document.querySelector('.score').textContent = score;
     } else {
@@ -46,18 +48,19 @@ document.querySelector('.check').addEventListener('click', function () {
       highestScore = score;
       document.querySelector('.highscore').textContent = highestScore;
     }
-    //input greater
-  } else if (inputValue > secretNumber) {
-    if (score > 1) {
-      document.querySelector('.message').textContent =
-        'Wrong! The number is too high!';
-      score--;
-      document.querySelector('.score').textContent = score;
-    } else {
-      document.querySelector('.message').textContent = 'You lost the game';
-      document.querySelector('.score').textContent = 0;
-    }
   }
+  //input greater
+  //   } else if (inputValue > secretNumber) {
+  //     if (score > 1) {
+  //       document.querySelector('.message').textContent =
+  //         'Wrong! The number is too high!';
+  //       score--;
+  //       document.querySelector('.score').textContent = score;
+  //     } else {
+  //       document.querySelector('.message').textContent = 'You lost the game';
+  //       document.querySelector('.score').textContent = 0;
+  //     }
+  //   }
 });
 document.querySelector('.again').addEventListener('click', function () {
   //rehide the hiddennumber
