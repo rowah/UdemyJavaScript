@@ -8,6 +8,7 @@
 //define the secret number to compare to the input number after every event handling
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
+let highestScore = 0;
 //display secret number under the question mark on the dom
 //document.querySelector('.number').textContent = secretNumber;
 //event listensr
@@ -35,11 +36,16 @@ document.querySelector('.check').addEventListener('click', function () {
     //winning condition
   } else if (inputValue === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number!';
-    document.querySelector('.highscore').textContent = score;
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
     //display secret number under the question mark on the dom
     document.querySelector('.number').textContent = secretNumber;
+
+    //Manipulating the highscore
+    if (score > highestScore) {
+      highestScore = score;
+      document.querySelector('.highscore').textContent = highestScore;
+    }
     //input greater
   } else if (inputValue > secretNumber) {
     if (score > 1) {
