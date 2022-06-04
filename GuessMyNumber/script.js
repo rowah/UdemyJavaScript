@@ -12,6 +12,9 @@ let highestScore = 0;
 const displayMessage = function (message) {
   document.querySelector('.message').textContent = message;
 };
+const displayScore = function (score) {
+  document.querySelector('.score').textContent = score;
+};
 //display secret number under the question mark on the dom
 //document.querySelector('.number').textContent = secretNumber;
 //event listensr
@@ -40,11 +43,13 @@ document.querySelector('.check').addEventListener('click', function () {
           : 'Wrong! The number is too high!'
       );
       score--;
-      document.querySelector('.score').textContent = score;
+      //document.querySelector('.score').textContent = score;
+      displayScore(score);
     } else {
       //document.querySelector('.message').textContent = 'You lost the game';
       displayMessage('You lost the game');
-      document.querySelector('.score').textContent = 0;
+      //document.querySelector('.score').textContent = 0;
+      displayScore(0);
     }
     //winning condition
   } else if (inputValue === secretNumber) {
@@ -77,7 +82,8 @@ document.querySelector('.check').addEventListener('click', function () {
 document.querySelector('.again').addEventListener('click', function () {
   //rehide the hiddennumber
   score = 20;
-  document.querySelector('.score').textContent = score;
+  //document.querySelector('.score').textContent = score;
+  displayScore(score);
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').textContent = '?';
   //document.querySelector('.message').textContent = 'Start guessing...';
