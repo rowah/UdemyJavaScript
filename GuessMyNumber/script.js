@@ -6,7 +6,7 @@
 // document.querySelector('.score').textContent = 10;
 
 //define the secret number to compare to the input number after every event handling
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 //display secret number under the question mark on the dom
 //document.querySelector('.number').textContent = secretNumber;
@@ -25,7 +25,7 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (inputValue < secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent =
-        'Wrong! The number is too low! Guess Again';
+        'Wrong! The number is too low!';
       score--;
       document.querySelector('.score').textContent = score;
     } else {
@@ -44,7 +44,7 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (inputValue > secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent =
-        'Wrong! The number is too high! Guess Again';
+        'Wrong! The number is too high!';
       score--;
       document.querySelector('.score').textContent = score;
     } else {
@@ -53,8 +53,14 @@ document.querySelector('.check').addEventListener('click', function () {
     }
   }
 });
-// document.querySelector('.again').addEventListener('click', function () {
-//     document.querySelector('.highscore').textContent = score;
-//document.querySelector('body').style.backgroundColor = '#222';
-// });
-// document.querySelector('.number').textContent = inputValue;
+document.querySelector('.again').addEventListener('click', function () {
+  //rehide the hiddennumber
+  score = 20;
+  document.querySelector('.score').textContent = score;
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').textContent = '?';
+  document.querySelector('.message').textContent = 'Start guessing...';
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  document.querySelector('.number').style.width = '15rem';
+  document.querySelector('.guess').value = '';
+});
