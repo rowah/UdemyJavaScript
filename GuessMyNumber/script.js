@@ -18,8 +18,10 @@ document.querySelector('.check').addEventListener('click', function () {
   document.querySelector('.message').textContent = 'Correct Number!';
   console.log(inputValue);
   //implementing simplest game logic if no value input
+  //no input
   if (!inputValue) {
     document.querySelector('.message').textContent = 'No Number!';
+    //input low
   } else if (inputValue < secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent =
@@ -30,9 +32,13 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.message').textContent = 'You lost the game';
       document.querySelector('.score').textContent = 0;
     }
+    //winning condition
   } else if (inputValue === secretNumber) {
     document.querySelector('.message').textContent = 'Correct Number!';
     document.querySelector('.highscore').textContent = score;
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
+    //input greater
   } else if (inputValue > secretNumber) {
     if (score > 1) {
       document.querySelector('.message').textContent =
@@ -47,5 +53,6 @@ document.querySelector('.check').addEventListener('click', function () {
 });
 // document.querySelector('.again').addEventListener('click', function () {
 //     document.querySelector('.highscore').textContent = score;
+//document.querySelector('body').style.backgroundColor = '#222';
 // });
 // document.querySelector('.number').textContent = inputValue;
