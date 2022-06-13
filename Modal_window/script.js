@@ -14,12 +14,12 @@ for (let i = 0; i < btnOpenModal.length; i++)
     modal.classList.remove('hidden');
     overLay.classList.remove('hidden');
   });
-btnCloseModal.addEventListener('click', () => {
-  modal.classList.add('hidden');
-  overLay.classList.add('hidden');
-});
 
-overLay.addEventListener('click', () => {
+//create a function closeModal
+function closeModal() {
   modal.classList.add('hidden');
   overLay.classList.add('hidden');
-});
+}
+btnCloseModal.addEventListener('click', closeModal);
+
+overLay.addEventListener('click', closeModal);
