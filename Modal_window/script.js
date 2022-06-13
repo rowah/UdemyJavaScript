@@ -1,15 +1,20 @@
 'use strict';
 const modal = document.querySelector('.modal');
 const overLay = document.querySelector('.overlay');
-const btnCloseModal = document.querySelectorAll('.show-modal');
+const btnOpenModal = document.querySelectorAll('.show-modal');
+const btnCloseModal = document.querySelector('.close-modal');
 
-console.log(btnCloseModal);
+console.log(btnOpenModal);
 
 //adding event listsner to the buttons
-for (let i = 0; i < btnCloseModal.length; i++)
-  //console.log(btnCloseModal[i].textContent);
-  btnCloseModal[i].addEventListener('click', () => {
+for (let i = 0; i < btnOpenModal.length; i++)
+  //console.log(btnOpenModal[i].textContent);
+  btnOpenModal[i].addEventListener('click', () => {
     console.log('Button Clicked');
     modal.classList.remove('hidden');
     overLay.classList.remove('hidden');
   });
+btnCloseModal.addEventListener('click', () => {
+  modal.classList.add('hidden');
+  overLay.classList.add('hidden');
+});
