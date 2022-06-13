@@ -18,3 +18,8 @@ btnCloseModal.addEventListener('click', () => {
   modal.classList.add('hidden');
   overLay.classList.add('hidden');
 });
+
+overLay.addEventListener('click', () => {
+  modal.classList.add('hidden');
+  overLay.classList.add('hidden');
+});
