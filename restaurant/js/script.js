@@ -6,6 +6,10 @@ const restaurant = {
   categories: ["Vegarian", "Organic", "Italian", "Pizzeria"],
   starterMenu: ["Focassia", "Bruschetta", "Garlic Bread", "Caprese Salad"],
   mainMenu: ["Beef", "Fish", "Pizza"],
+  //method to order food
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
 };
 
 //array destructuring
@@ -18,5 +22,9 @@ const [x, y, z] = arr;
 console.log(x, y, z);
 
 //taking the first two restaurant categories
-const [first, second, , forth] = restaurant.categories;
+let [first, second, , forth] = restaurant.categories;
 console.log(first, second, forth); //gives Vegarian, Organic and Pizzeria
+//reassgning
+[first, second] = [second, first];
+console.log(first, second);
+console.log(restaurant.order(0, 2)); //can now be destructured
