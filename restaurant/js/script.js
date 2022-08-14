@@ -35,3 +35,7 @@ const nested = [1, 2, 3, [5, 6]];
 // console.log(i, j);
 const [i, , , [j]] = nested;
 console.log(j);
+
+const [t, m, k] = [5, 7];
+console.log(t, m, k);
+//k becomes undefined
