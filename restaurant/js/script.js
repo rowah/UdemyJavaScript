@@ -16,3 +16,7 @@ const c = arr[2];
 
 const [x, y, z] = arr;
 console.log(x, y, z);
+
+//taking the first two restaurant categories
+const [first, second, , forth] = restaurant.categories;
+console.log(first, second, forth); //gives Vegarian, Organic and Pizzeria
