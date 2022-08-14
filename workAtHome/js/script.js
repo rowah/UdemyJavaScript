@@ -20,3 +20,19 @@ console.log("Me:", me);
 //the friend identifier points directly to me address that contains the reference that points to the object itself and so the friend obj is exactly the same as me obj
 //a value is then changed in the heap and the address remains the same, so me age avlue also changes
 //primitive vs reference values
+
+let lastName = "Williams";
+let oldLastName = lastName;
+lastName = "Davis";
+console.log(lastName, oldLastName);
+
+//copying objects using function.assign (only creates a shallow copy)
+const jessica = {
+  firstName: "Jessica",
+  lastName: "Williams",
+  age: 23,
+};
+const jessica2 = Object.assign({}, jessica);
+jessica2.lastName = "Rowah";
+console.log(jessica);
+console.log(jessica2);
