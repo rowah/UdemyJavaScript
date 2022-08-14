@@ -28,3 +28,10 @@ console.log(first, second, forth); //gives Vegarian, Organic and Pizzeria
 [first, second] = [second, first];
 console.log(first, second);
 console.log(restaurant.order(0, 2)); //can now be destructured
+
+//destructruing with nested array
+const nested = [1, 2, 3, [5, 6]];
+// const [i, , , j] = nested;
+// console.log(i, j);
+const [i, , , [j]] = nested;
+console.log(j);
