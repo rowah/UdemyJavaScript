@@ -13,27 +13,12 @@ const [gk, ...fieldPlayers] = players1;
 const allPlayers = [...players1, ...players2];
 
 // 4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
-const players1Final = [
-  "Neuer",
-  "Pavard",
-  "Martinez",
-  "Alaba",
-  "Davies",
-  "Kimmich",
-  "Goretzka",
-  "Coman",
-  "Muller",
-  "Gnarby",
-  "Lewandowski",
-  "Thiago",
-  "Coutinho",
-  "Perisic",
-];
+const players1Final = [...players1, "Thiago", "Coutinho", "Perisic"];
 
 // 5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
-const team1 = 1.33;
-const team2 = 6.5;
-const draw = 3.25;
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
 
 /*
 6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
@@ -80,5 +65,3 @@ const game = {
     team2: 6.5,
   },
 };
-
-alert("yolo");
