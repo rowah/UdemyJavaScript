@@ -36,6 +36,11 @@ const poll = {
         `${this.question}\n${this.options.join("\n")}\n(Write option number)`
       )
     );
+    console.log(answer);
+    //registering answer
+    typeof answer === "number" &&
+      answer < this.answers.length &&
+      this.answers[answer]++;
   },
 };
 
