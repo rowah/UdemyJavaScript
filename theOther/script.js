@@ -1,4 +1,3 @@
-//////////////////////////////////////
 // Coding Challenge #1
 
 // Let's build a simple poll app!
@@ -12,7 +11,6 @@
 //         2: Rust
 //         3: C++
 //         (Write option number)
-
 //   1.2. Based on the input number, update the answers array. For example, if the option is 3, increase the value AT POSITION 3 of the array by 1. Make sure to check if the input is a number and if the number makes sense (e.g answer 52 wouldn't make sense, right?)
 
 // 2. Call this method whenever the user clicks the "Answer poll" button.
@@ -31,4 +29,14 @@ const poll = {
   options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
   // This generates [0, 0, 0, 0]. More in the next section 😃
   answers: new Array(4).fill(0),
+  registerNewAnswer() {
+    const answer = Number(
+      prompt(
+        //   `${poll.question}\n${poll.options[0]}\n${poll.options[1]}\n${poll.options[2]}\n${poll.options[3]}\n(Write option number)`
+        `${this.question}\n${this.options.join("\n")}\n(Write option number)`
+      )
+    );
+  },
 };
+
+poll.registerNewAnswer();
