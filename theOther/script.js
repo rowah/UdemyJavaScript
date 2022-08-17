@@ -41,7 +41,13 @@ const poll = {
     typeof answer === "number" &&
       answer < this.answers.length &&
       this.answers[answer]++;
+    console.log(this.answers);
   },
 };
 
-poll.registerNewAnswer();
+//poll.registerNewAnswer();
+
+//adds event listeneer to the button
+document
+  .querySelector(".poll")
+  .addEventListener("click", poll.registerNewAnswer.bind(poll));
