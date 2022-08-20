@@ -62,3 +62,8 @@ document
   .addEventListener("click", poll.registerNewAnswer.bind(poll));
 
 //poll.displayResults.call({ answers: [5, 2, 3] });
+
+//Immediately invokes function expression
+(function () {
+  console.log("I am never running again");
+})();
