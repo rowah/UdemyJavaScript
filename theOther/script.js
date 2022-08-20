@@ -63,7 +63,9 @@ document
 
 //poll.displayResults.call({ answers: [5, 2, 3] });
 
-//Immediately invokes function expression
+//Immediately invokes function expression: wrapped into () and then called immediately. works with arrow functions as weel
 (function () {
   console.log("I am never running again");
 })();
+
+(() => console.log("I am also never running again"))();
