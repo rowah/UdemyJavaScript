@@ -91,11 +91,11 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // });
 
 //OR FUNCTION CALL
-const moveThrough = function (movement) {
+const moveThrough = function (movement, i) {
   if (movement > 0) {
-    console.log(`You deposited $${movement}`);
+    console.log(`Movement ${[i + 1]}: You deposited $${movement}`);
   } else {
-    console.log(`You withdrew $${Math.abs(movement)}`);
+    console.log(`Movement ${i + 1}: You withdrew $${Math.abs(movement)}`);
   }
 };
 
