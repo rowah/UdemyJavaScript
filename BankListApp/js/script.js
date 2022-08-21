@@ -77,7 +77,7 @@ const displayMovement = function (movements) {
     <div class="movements__row">
         <div class="movements__type movements__type--${type}">${[
       i + 1,
-    ]}${type}</div>
+    ]} ${type}</div>
         <div class="movements__value">${movement}€</div>
     </div>`;
     //insering the creates html using the .insertA
@@ -86,6 +86,27 @@ const displayMovement = function (movements) {
 };
 
 displayMovement(account1.movements);
+
+//calcculating and printing account balance
+const calcPrintBalance = function (movements) {
+  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcPrintBalance(account1.movements);
+
+//sums up transactions
+const calcDisplaySummary = function (movements) {
+  const allDeposits = movements
+    .filter(movement => movement > 0)
+    .reduce((acc, cur) => acc + cur, 0);
+  labelSumIn.textContent = `${allDeposits}€`;
+  const allWithdawals = movements
+    .filter(movement => movement < 0)
+    .reduce((acc, movement) => acc + movement, 0);
+  labelSumOut.textContent = `${Math.abs(allWithdawals)}€`;
+};
+
+calcDisplaySummary(account1.movements);
 
 //computing usernames for bank users
 
@@ -97,12 +118,11 @@ const createUserNames = function (accounts) {
       .split(' ')
       .map(name => name[0])
       .join('');
-    console.log(account.userName);
   });
 };
-
 createUserNames(accounts);
-console.log(accounts);
+
+//login implementation
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
