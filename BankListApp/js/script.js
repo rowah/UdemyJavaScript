@@ -104,6 +104,14 @@ const calcDisplaySummary = function (movements) {
     .filter(movement => movement < 0)
     .reduce((acc, movement) => acc + movement, 0);
   labelSumOut.textContent = `${Math.abs(allWithdawals)}€`;
+
+  //interest rate
+  const cumInterest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter(interest => interest >= 1)
+    .reduce((acc, interest) => acc + interest, 0);
+  labelSumInterest.textContent = `${cumInterest}€`;
 };
 
 calcDisplaySummary(account1.movements);
