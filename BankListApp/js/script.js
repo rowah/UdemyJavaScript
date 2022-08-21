@@ -62,6 +62,30 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//////DOM manipulations to display bank movements on the app
+//Create a display movement function
+const displayMovement = function (movements) {
+  //empting the container
+  containerMovements.innerHTML = '';
+
+  //creates a new html to display movements. each iteration creates a movement's row and displays data
+  movements.forEach(function (movement, i) {
+    //determines withdrawal or deposit
+    const type = movement > 0 ? 'deposit' : 'withdrawal';
+    //create a html template literal
+    const html = `
+    <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${[
+      i + 1,
+    ]}${type}</div>
+        <div class="movements__value">${movement}€</div>
+    </div>`;
+    //insering the creates html using the .insertA
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovement(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -72,7 +96,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //looping over to print each movement for bank account: pos values are deposits, negative values are withdrwals
 // for (const movement of movements) {
 //   if (movement > 0) {
