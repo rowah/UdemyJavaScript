@@ -86,6 +86,24 @@ const displayMovement = function (movements) {
 };
 
 displayMovement(account1.movements);
+
+//computing usernames for bank users
+
+const createUserNames = function (accounts) {
+  //transform string to lowercase
+  accounts.forEach(function (account) {
+    account.userName = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+    console.log(account.userName);
+  });
+};
+
+createUserNames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
