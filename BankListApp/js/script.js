@@ -164,6 +164,12 @@ btnLogin.addEventListener('click', function (event) {
 
     //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
     displayMovement(currentAccount.movements);
+  } else {
+    //invalid credetials
+    containerApp.style.opacity = 0;
+    alert('Invalid userName or PIN\nPlease try again!');
+    inputLoginUsername.value = '';
+    inputLoginPin.value = '';
   }
 });
 /////////////////////////////////////////////////
