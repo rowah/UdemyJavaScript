@@ -111,7 +111,7 @@ const calcDisplaySummary = function (movements) {
     .map(deposit => (deposit * 1.2) / 100)
     .filter(interest => interest >= 1)
     .reduce((acc, interest) => acc + interest, 0);
-  labelSumInterest.textContent = `${cumInterest}€`;
+  labelSumInterest.textContent = `${cumInterest.toFixed(2)}€`;
 };
 
 //computing usernames for bank users
