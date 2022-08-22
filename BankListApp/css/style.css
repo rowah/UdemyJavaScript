@@ -68,11 +68,14 @@ nav {
 
 .login__btn {
   border: none;
-  background: none;
-  font-size: 2.2rem;
+  border-radius: 10rem;
+  background: #9be15d;
+  /* font-size: 2.2rem; */
   color: inherit;
   cursor: pointer;
   transition: all 0.3s;
+  font-size: medium;
+  width: 80px;
 }
 
 .login__btn:hover,

@@ -6,7 +6,7 @@
 
 // Data one object for each account
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'James Rowa',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
@@ -95,20 +95,20 @@ const calcPrintBalance = function (movements) {
 // calcPrintBalance(account1.movements);
 
 //sums up transactions
-const calcDisplaySummary = function (movements) {
-  const allDeposits = movements
+const calcDisplaySummary = function (account) {
+  const allDeposits = account.movements
     .filter(movement => movement > 0)
     .reduce((acc, cur) => acc + cur, 0);
   labelSumIn.textContent = `${allDeposits}€`;
-  const allWithdawals = movements
+  const allWithdawals = account.movements
     .filter(movement => movement < 0)
     .reduce((acc, movement) => acc + movement, 0);
   labelSumOut.textContent = `${Math.abs(allWithdawals)}€`;
 
   //interest rate
-  const cumInterest = movements
+  const cumInterest = account.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * account.interestRate) / 100)
     .filter(interest => interest >= 1)
     .reduce((acc, interest) => acc + interest, 0);
   labelSumInterest.textContent = `${cumInterest.toFixed(2)}€`;
@@ -150,11 +150,17 @@ btnLogin.addEventListener('click', function (event) {
     }`;
     //displaying UI by setting the .app opacity to 100
     containerApp.style.opacity = 100;
+
+    //clearing input field after successful login
+    inputLoginUsername.value = '';
+    inputLoginPin.value = '';
+    //input field lose focus
+    inputLoginPin.blur();
     //2. Calc and display balance: call calcPrintBalance function with currentAccount.movement as the argument
     calcPrintBalance(currentAccount.movements);
 
     //3. Calc and display account summary: call calcDisplaySummary function with currentAccount.movement as the argument
-    calcDisplaySummary(currentAccount.movements);
+    calcDisplaySummary(currentAccount);
 
     //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
     displayMovement(currentAccount.movements);
