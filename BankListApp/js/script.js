@@ -130,11 +130,25 @@ const createUserNames = function (accounts) {
 };
 createUserNames(accounts);
 
-//login implementation
+//login implementation through event handlers
+//create currentaccount variable outside of the function as it will be needed elsewhere
+let currentAccount;
 
+btnLogin.addEventListener('click', function (event) {
+  //prevents default page reload when the form button is clicked by preventing form from submitting //pressing enter key produces the same event as clicking the submit button by default
+  event.preventDefault();
+  //log in the user by finding the username from the account that the user inputted
+  currentAccount = accounts.find(
+    account => account.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+  //checks if input pin is similar to the pin in account with the username
+  //converts the pininput value to a number coz it's a string by default
+  //? chaining helps the pin to be read only if the current account exists to prevent the default error response of the find method when currentAccount does not exist
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  }
+});
 /////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
