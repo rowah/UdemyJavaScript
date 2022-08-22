@@ -85,14 +85,14 @@ const displayMovement = function (movements) {
   });
 };
 
-displayMovement(account1.movements);
+// displayMovement(account1.movements);
 
 //calcculating and printing account balance
 const calcPrintBalance = function (movements) {
   const balance = movements.reduce((acc, cur) => acc + cur, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcPrintBalance(account1.movements);
+// calcPrintBalance(account1.movements);
 
 //sums up transactions
 const calcDisplaySummary = function (movements) {
@@ -113,8 +113,6 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, interest) => acc + interest, 0);
   labelSumInterest.textContent = `${cumInterest}€`;
 };
-
-calcDisplaySummary(account1.movements);
 
 //computing usernames for bank users
 
@@ -141,11 +139,25 @@ btnLogin.addEventListener('click', function (event) {
   currentAccount = accounts.find(
     account => account.userName === inputLoginUsername.value
   );
-  console.log(currentAccount);
   //checks if input pin is similar to the pin in account with the username
   //converts the pininput value to a number coz it's a string by default
   //? chaining helps the pin to be read only if the current account exists to prevent the default error response of the find method when currentAccount does not exist
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //what to do when the pin and username are correct
+    //1. Display UI and a welcome message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    //displaying UI by setting the .app opacity to 100
+    containerApp.style.opacity = 100;
+    //2. Calc and display balance: call calcPrintBalance function with currentAccount.movement as the argument
+    calcPrintBalance(currentAccount.movements);
+
+    //3. Calc and display account summary: call calcDisplaySummary function with currentAccount.movement as the argument
+    calcDisplaySummary(currentAccount.movements);
+
+    //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
+    displayMovement(currentAccount.movements);
   }
 });
 /////////////////////////////////////////////////
