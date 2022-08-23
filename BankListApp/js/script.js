@@ -246,10 +246,13 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+//determines if we are currently sorting
+let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   //call the displayMovement with sort set to true for sorting to occur on every click
-  displayMovement(currentAccount.movements, true);
+  displayMovement(currentAccount.movements, !sorted); //does the opposite of sorted so that if it's sorted it becomes false and otherwise when not
+  sorted = !sorted; //flips the variable from true to false and back
 });
 /////////////////////////////////////////////
 
