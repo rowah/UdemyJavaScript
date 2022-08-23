@@ -205,6 +205,28 @@ btnTransfer.addEventListener('click', function (e) {
   //clears input fields outside the if statement since it has to happen whether transaction is successful or not
   inputTransferAmount.value = inputTransferTo.value = '';
 });
+
+//deleting account
+//1.find the indexof account to be deleted and slice with the index as argument then update UI opacity to 0
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    console.log('Delete');
+
+    const acctoDelIndex = accounts.findIndex(
+      account => account.userName === currentAccount.userName
+    );
+    //delete account
+    accounts.splice(acctoDelIndex, 1);
+    //update UI
+    containerApp.style.opacity = 0;
+  }
+  //clear input fields
+  inputCloseUsername.value = inputClosePin.value = '';
+});
 /////////////////////////////////////////////////
 
 const currencies = new Map([
