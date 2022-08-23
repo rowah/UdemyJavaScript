@@ -202,6 +202,8 @@ btnTransfer.addEventListener('click', function (e) {
     //updating ui
     updateUI(currentAccount);
   }
+  //clears input fields outside the if statement since it has to happen whether transaction is successful or not
+  inputTransferAmount.value = inputTransferTo.value = '';
 });
 /////////////////////////////////////////////////
 
