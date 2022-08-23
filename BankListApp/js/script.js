@@ -128,8 +128,19 @@ const createUserNames = function (accounts) {
 };
 createUserNames(accounts);
 
+const updateUI = function (account) {
+  //2. Calc and display balance: call calcPrintBalance function with currentAccount.movement as the argument
+  calcPrintBalance(account);
+
+  //3. Calc and display account summary: call calcDisplaySummary function with currentAccount.movement as the argument
+  calcDisplaySummary(account);
+
+  //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
+  displayMovement(account.movements);
+};
+
 //login implementation through event handlers
-//create currentaccount variable outside of the function as it will be needed elsewhere
+//create currentAccount variable outside of the function as it will be needed elsewhere
 let currentAccount;
 
 btnLogin.addEventListener('click', function (event) {
@@ -156,14 +167,8 @@ btnLogin.addEventListener('click', function (event) {
     inputLoginPin.value = '';
     //input field lose focus
     inputLoginPin.blur();
-    //2. Calc and display balance: call calcPrintBalance function with currentAccount.movement as the argument
-    calcPrintBalance(currentAccount);
 
-    //3. Calc and display account summary: call calcDisplaySummary function with currentAccount.movement as the argument
-    calcDisplaySummary(currentAccount);
-
-    //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
-    displayMovement(currentAccount.movements);
+    updateUI(currentAccount);
   } else {
     //invalid credetials
     containerApp.style.opacity = 0;
@@ -193,6 +198,9 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     //add new positive movement on the receiver account
     receiverAccount.movements.push(amount);
+
+    //updating ui
+    updateUI(currentAccount);
   }
 });
 /////////////////////////////////////////////////
