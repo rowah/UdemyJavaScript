@@ -154,7 +154,7 @@ btnLogin.addEventListener('click', function (event) {
   //checks if input pin is similar to the pin in account with the username
   //converts the pininput value to a number coz it's a string by default
   //? chaining helps the pin to be read only if the current account exists to prevent the default error response of the find method when currentAccount does not exist
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     //what to do when the pin and username are correct
     //1. Display UI and a welcome message
     labelWelcome.textContent = `Welcome back, ${
@@ -182,7 +182,7 @@ btnLogin.addEventListener('click', function (event) {
 //implementing transfers
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   //find receiver account that matches the userName in the input to be trasferred to
   const receiverAccount = accounts.find(
     account => account.userName === inputTransferTo.value
@@ -210,7 +210,7 @@ btnTransfer.addEventListener('click', function (e) {
 //Loan Request
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
-  const loan = Number(inputLoanAmount.value);
+  const loan = +inputLoanAmount.value;
   console.log(loan);
   //some method tests if any of the movements is greater than 10% of the loan
   if (
@@ -230,7 +230,7 @@ btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
     inputCloseUsername.value === currentAccount.userName &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     console.log('Delete');
 
