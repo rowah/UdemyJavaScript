@@ -210,7 +210,8 @@ btnTransfer.addEventListener('click', function (e) {
 //Loan Request
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
-  const loan = +inputLoanAmount.value;
+  //rounds off loans to whole nos
+  const loan = Math.floor(inputLoanAmount.value);
   console.log(loan);
   //some method tests if any of the movements is greater than 10% of the loan
   if (
