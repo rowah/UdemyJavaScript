@@ -79,7 +79,7 @@ const displayMovement = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${[
       i + 1,
     ]} ${type}</div>
-        <div class="movements__value">${movement}€</div>
+        <div class="movements__value">${movement.toFixed(2)}€</div>
     </div>`;
     //insering the creates html using the .insertA
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -91,7 +91,7 @@ const displayMovement = function (movements, sort = false) {
 //calcculating and printing account balance
 const calcPrintBalance = function (account) {
   account.balance = account.movements.reduce((acc, cur) => acc + cur, 0);
-  labelBalance.textContent = `${account.balance}€`;
+  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
 };
 // calcPrintBalance(account1.movements);
 
@@ -100,11 +100,11 @@ const calcDisplaySummary = function (account) {
   const allDeposits = account.movements
     .filter(movement => movement > 0)
     .reduce((acc, cur) => acc + cur, 0);
-  labelSumIn.textContent = `${allDeposits}€`;
+  labelSumIn.textContent = `${allDeposits.toFixed(2)}€`;
   const allWithdawals = account.movements
     .filter(movement => movement < 0)
     .reduce((acc, movement) => acc + movement, 0);
-  labelSumOut.textContent = `${Math.abs(allWithdawals)}€`;
+  labelSumOut.textContent = `${Math.abs(allWithdawals).toFixed(2)}€`;
 
   //interest rate
   const cumInterest = account.movements
