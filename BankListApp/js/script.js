@@ -88,9 +88,9 @@ const displayMovement = function (movements) {
 // displayMovement(account1.movements);
 
 //calcculating and printing account balance
-const calcPrintBalance = function (movements) {
-  const balance = movements.reduce((acc, cur) => acc + cur, 0);
-  labelBalance.textContent = `${balance}€`;
+const calcPrintBalance = function (account) {
+  account.balance = account.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${account.balance}€`;
 };
 // calcPrintBalance(account1.movements);
 
@@ -157,7 +157,7 @@ btnLogin.addEventListener('click', function (event) {
     //input field lose focus
     inputLoginPin.blur();
     //2. Calc and display balance: call calcPrintBalance function with currentAccount.movement as the argument
-    calcPrintBalance(currentAccount.movements);
+    calcPrintBalance(currentAccount);
 
     //3. Calc and display account summary: call calcDisplaySummary function with currentAccount.movement as the argument
     calcDisplaySummary(currentAccount);
@@ -170,6 +170,29 @@ btnLogin.addEventListener('click', function (event) {
     alert('Invalid userName or PIN\nPlease try again!');
     inputLoginUsername.value = '';
     inputLoginPin.value = '';
+  }
+});
+
+//implementing transfers
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  //find receiver account that matches the userName in the input to be trasferred to
+  const receiverAccount = accounts.find(
+    account => account.userName === inputTransferTo.value
+  );
+  console.log(amount, receiverAccount);
+  //add negative movement to current user while ensuring the receiver account is not the same as current account (different usernames), money being sent is not more than the account balance, and the amount being transferred is greater than 0. Also checks if receiver account exists
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAccount?.userName !== currentAccount.userName
+  ) {
+    //transfers
+    //add new negative movement to the current account
+    currentAccount.movements.push(-amount);
+    //add new positive movement on the receiver account
+    receiverAccount.movements.push(amount);
   }
 });
 /////////////////////////////////////////////////
