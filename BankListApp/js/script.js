@@ -64,12 +64,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 //////DOM manipulations to display bank movements on the app
 //Create a display movement function
-const displayMovement = function (movements) {
+const displayMovement = function (movements, sort = false) {
   //empting the container
   containerMovements.innerHTML = '';
-
+  //checks if sort is true then creates a copy of movements array and sorting it: without the slice copy of the arrya, soting would be done on the underlying movements array on the objects. If sort is false, the regular movements get displayed
+  const moves = sort ? movements.slice().sort((a, b) => a - b) : movements;
   //creates a new html to display movements. each iteration creates a movement's row and displays data
-  movements.forEach(function (movement, i) {
+  moves.forEach(function (movement, i) {
     //determines withdrawal or deposit
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     //create a html template literal
@@ -206,6 +207,23 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferAmount.value = inputTransferTo.value = '';
 });
 
+//Loan Request
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loan = Number(inputLoanAmount.value);
+  console.log(loan);
+  //some method tests if any of the movements is greater than 10% of the loan
+  if (
+    loan > 0 &&
+    currentAccount.movements.some(movement => movement >= (loan * 10) / 100)
+  ) {
+    currentAccount.movements.push(loan);
+
+    //updating ui
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
 //deleting account
 //1.find the indexof account to be deleted and slice with the index as argument then update UI opacity to 0
 btnClose.addEventListener('click', function (e) {
@@ -227,7 +245,13 @@ btnClose.addEventListener('click', function (e) {
   //clear input fields
   inputCloseUsername.value = inputClosePin.value = '';
 });
-/////////////////////////////////////////////////
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  //call the displayMovement with sort set to true for sorting to occur on every click
+  displayMovement(currentAccount.movements, true);
+});
+/////////////////////////////////////////////
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
