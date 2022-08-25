@@ -88,6 +88,17 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//FUNCTIONS
+const formatMovementDate = function (date) {
+  //formats date
+  const calcDateDiff = (date1, date2) =>
+    Math.abs(date1 - date2) / (1000 * 60 * 60 * 24);
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 //////DOM manipulations to display bank movements on the app
 //Create a display movement function
 const displayMovement = function (account, sort = false) {
@@ -100,14 +111,11 @@ const displayMovement = function (account, sort = false) {
   //creates a new html to display movements. each iteration creates a movement's row and displays data
   moves.forEach(function (movement, i) {
     //determines withdrawal or deposit
-    const date = new Date(account.movementsDates[i]);
-
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
 
     const type = movement > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(account.movementsDates[i]);
+    const displayDate = formatMovementDate(date);
     //create a html template literal
     const html = `
     <div class="movements__row">
@@ -208,7 +216,7 @@ btnLogin.addEventListener('click', function (event) {
     const day = `${now.getDate()}`.padStart(2, 0);
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hour = now.getHours().padStart(2, 0);
+    const hour = `${now.getHours()}`.padStart(2, 0);
     const min = `${now.getMinutes()}`.padStart(2, 0);
     labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
@@ -345,3 +353,10 @@ const currencies = new Map([
 // };
 
 // movements.forEach(moveThrough);
+
+const future = new Date(2031, 3, 27);
+console.log(+future);
+const calcDateDiff = (date1, date2) =>
+  Math.abs(date1 - date2) / (1000 * 60 * 60 * 24);
+const days1 = calcDateDiff(new Date(2031, 3, 17), new Date(2031, 3, 27));
+console.log(days1);
