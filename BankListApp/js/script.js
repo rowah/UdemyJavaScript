@@ -10,6 +10,19 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-05-27T17:01:17.194Z',
+    '2020-07-11T23:36:17.929Z',
+    '2020-07-12T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -17,6 +30,19 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
 };
 
 const account3 = {
@@ -64,14 +90,23 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 //////DOM manipulations to display bank movements on the app
 //Create a display movement function
-const displayMovement = function (movements, sort = false) {
+const displayMovement = function (account, sort = false) {
   //empting the container
   containerMovements.innerHTML = '';
   //checks if sort is true then creates a copy of movements array and sorting it: without the slice copy of the arrya, soting would be done on the underlying movements array on the objects. If sort is false, the regular movements get displayed
-  const moves = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const moves = sort
+    ? account.movements.slice().sort((a, b) => a - b)
+    : account.movements;
   //creates a new html to display movements. each iteration creates a movement's row and displays data
   moves.forEach(function (movement, i) {
     //determines withdrawal or deposit
+    const date = new Date(account.movementsDates[i]);
+
+    const day = `${date.getDay()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
+
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     //create a html template literal
     const html = `
@@ -79,6 +114,7 @@ const displayMovement = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${[
       i + 1,
     ]} ${type}</div>
+    <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${movement.toFixed(2)}€</div>
     </div>`;
     //insering the creates html using the .insertA
@@ -137,12 +173,16 @@ const updateUI = function (account) {
   calcDisplaySummary(account);
 
   //4. Display current account movements: call displayMovement function with currentAccount.movement as the argument
-  displayMovement(account.movements);
+  displayMovement(account);
 };
 
 //login implementation through event handlers
 //create currentAccount variable outside of the function as it will be needed elsewhere
 let currentAccount;
+
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (event) {
   //prevents default page reload when the form button is clicked by preventing form from submitting //pressing enter key produces the same event as clicking the submit button by default
@@ -162,6 +202,15 @@ btnLogin.addEventListener('click', function (event) {
     }`;
     //displaying UI by setting the .app opacity to 100
     containerApp.style.opacity = 100;
+
+    //implements balance as of date by creating current message
+    const now = new Date();
+    const day = `${now.getDay()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     //clearing input field after successful login
     inputLoginUsername.value = '';
@@ -187,7 +236,6 @@ btnTransfer.addEventListener('click', function (e) {
   const receiverAccount = accounts.find(
     account => account.userName === inputTransferTo.value
   );
-  console.log(amount, receiverAccount);
   //add negative movement to current user while ensuring the receiver account is not the same as current account (different usernames), money being sent is not more than the account balance, and the amount being transferred is greater than 0. Also checks if receiver account exists
   if (
     amount > 0 &&
@@ -212,7 +260,6 @@ btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   //rounds off loans to whole nos
   const loan = Math.floor(inputLoanAmount.value);
-  console.log(loan);
   //some method tests if any of the movements is greater than 10% of the loan
   if (
     loan > 0 &&
@@ -233,8 +280,6 @@ btnClose.addEventListener('click', function (e) {
     inputCloseUsername.value === currentAccount.userName &&
     +inputClosePin.value === currentAccount.pin
   ) {
-    console.log('Delete');
-
     const acctoDelIndex = accounts.findIndex(
       account => account.userName === currentAccount.userName
     );
@@ -252,7 +297,7 @@ let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   //call the displayMovement with sort set to true for sorting to occur on every click
-  displayMovement(currentAccount.movements, !sorted); //does the opposite of sorted so that if it's sorted it becomes false and otherwise when not
+  displayMovement(currentAccount, !sorted); //does the opposite of sorted so that if it's sorted it becomes false and otherwise when not
   sorted = !sorted; //flips the variable from true to false and back
 });
 /////////////////////////////////////////////
