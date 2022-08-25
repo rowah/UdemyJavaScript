@@ -102,7 +102,7 @@ const displayMovement = function (account, sort = false) {
     //determines withdrawal or deposit
     const date = new Date(account.movementsDates[i]);
 
-    const day = `${date.getDay()}`.padStart(2, 0);
+    const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, 0);
     const year = date.getFullYear();
     const displayDate = `${day}/${month}/${year}`;
@@ -180,9 +180,9 @@ const updateUI = function (account) {
 //create currentAccount variable outside of the function as it will be needed elsewhere
 let currentAccount;
 
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (event) {
   //prevents default page reload when the form button is clicked by preventing form from submitting //pressing enter key produces the same event as clicking the submit button by default
@@ -205,10 +205,10 @@ btnLogin.addEventListener('click', function (event) {
 
     //implements balance as of date by creating current message
     const now = new Date();
-    const day = `${now.getDay()}`.padStart(2, 0);
+    const day = `${now.getDate()}`.padStart(2, 0);
     const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const year = now.getFullYear();
-    const hour = now.getHours();
+    const hour = now.getHours().padStart(2, 0);
     const min = `${now.getMinutes()}`.padStart(2, 0);
     labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
@@ -248,6 +248,11 @@ btnTransfer.addEventListener('click', function (e) {
     //add new positive movement on the receiver account
     receiverAccount.movements.push(amount);
 
+    //adds new trasfer dates
+    //toISOString converts the date object created in the movement dates to a string similar to other date array date elements
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAccount.movementsDates.push(new Date().toISOString());
+
     //updating ui
     updateUI(currentAccount);
   }
@@ -266,6 +271,9 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.some(movement => movement >= (loan * 10) / 100)
   ) {
     currentAccount.movements.push(loan);
+
+    //adds loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     //updating ui
     updateUI(currentAccount);
