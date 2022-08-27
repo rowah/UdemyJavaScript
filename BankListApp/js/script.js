@@ -22,7 +22,7 @@ const account1 = {
     '2022-08-26T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  locale: 'en-KE', // de-DE
 };
 
 const account2 = {
@@ -233,6 +233,7 @@ btnLogin.addEventListener('click', function (event) {
     //International date formatter API
     const date = new Date();
     //adding time by defining an options object and provide it as a second argument to the dateformat function
+    //you can change long to numberic to get rid of month and weekday being displayed in other languages
     const options = {
       hour: 'numeric',
       minute: 'numeric',
@@ -243,12 +244,14 @@ btnLogin.addEventListener('click', function (event) {
       weekday: 'long',
     };
     //getting the date from user's browser
-    const locale = navigator.language;
-    console.log(localeHere);
+    // const locale = navigator.language;
+    // console.log(localeHere);
+    //LOCALE is present in the each account object and so each time can be formatted accordingly by replacing locale by the currentAccount.locale
 
-    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
-      date
-    );
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(date);
     // labelDate.textContent = new Intl.DateTimeFormat('en-KE', {
     //   dateStyle: 'full',
     //   timeStyle: 'long',
