@@ -196,9 +196,10 @@ const updateUI = function (account) {
 //create currentAccount variable outside of the function as it will be needed elsewhere
 let currentAccount;
 
-// currentAccount = account1;
-// updateUI(currentAccount);
-// containerApp.style.opacity = 100;
+//Fake always loggedIn
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (event) {
   //prevents default page reload when the form button is clicked by preventing form from submitting //pressing enter key produces the same event as clicking the submit button by default
@@ -220,13 +221,38 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = 100;
 
     //implements balance as of date by creating current message
-    const now = new Date();
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const min = `${now.getMinutes()}`.padStart(2, 0);
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+    // const now = new Date();
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const min = `${now.getMinutes()}`.padStart(2, 0);
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+
+    //ALTERNATIVELY
+    //International date formatter API
+    const date = new Date();
+    //adding time by defining an options object and provide it as a second argument to the dateformat function
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      weekday: 'long',
+    };
+    //getting the date from user's browser
+    const locale = navigator.language;
+    console.log(localeHere);
+
+    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
+      date
+    );
+    // labelDate.textContent = new Intl.DateTimeFormat('en-KE', {
+    //   dateStyle: 'full',
+    //   timeStyle: 'long',
+    // }).format(date);
 
     //clearing input field after successful login
     inputLoginUsername.value = '';
